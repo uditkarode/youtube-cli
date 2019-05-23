@@ -1,0 +1,53 @@
+#! /bin/bash
+
+# a bash version with caching
+
+WORKING_DIR='/home/udit/.songs'
+TARGET_PLAYER='mpv'
+
+show_help(){
+	echo help
+}
+
+inv_par(){
+	echo inv
+}
+
+cd $WORKING_DIR
+
+case "$#" in
+	"0")
+		show_help
+		;;
+
+	"1")
+		case "$1" in
+			'-h'|'--help')
+				show_help
+			;;
+
+			'-i'|'--info')
+				echo "total songs cached: "
+				du -hs $WORKING_DIR
+			;;
+		esac
+		;;
+
+	"2")
+		case "$1" in
+			'-p'|'--play')
+				link="$(ytcli --query "$2")"
+				file=$(echo "$link" | sed 's/.*=//')
+				if [ -f "$WORKING_DIR/$file" ]; then
+					mpv $WORKING_DIR/$file
+				else
+					youtube-dl -f 251 --audio-format "aac" -o - "$link" | tee "$file" | mpv -					
+				fi
+			;;
+		esac
+		;;
+	
+	*)
+		inv_par
+		;;
+esac

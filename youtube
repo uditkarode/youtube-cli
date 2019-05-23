@@ -1,0 +1,42 @@
+#! /usr/bin/python
+
+# a python version without caching
+
+import argparse as ap
+import urllib.request
+import urllib.parse
+import re
+import pafy
+import time
+import datetime
+import mpv
+
+def convert_timedelta(duration):
+    days, seconds = duration.days, duration.seconds
+    hours = days * 24 + seconds // 3600
+    minutes = (seconds % 3600) // 60
+    seconds = (seconds % 60)
+    return hours, minutes, seconds
+
+# command line arguments
+parser = ap.ArgumentParser(description='a simple tool that lets you play songs using YouTube from the cli')
+parser.add_argument('--play', type=str, help='video id of the song on youtube')
+args = parser.parse_args()
+
+# search handling
+query_string = urllib.parse.urlencode({"search_query" : args.play})
+html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
+search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
+video = pafy.new(search_results[0])
+
+# playing audio
+print("playing '" + video.title + "' [" + video.duration + ']')
+player = mpv.MPV(ytdl=False)
+started = datetime.datetime.now()
+player.play(video.getbestaudio().url)
+
+while True:
+    time.sleep(1)
+    current = datetime.datetime.now()
+    passed_hours, passed_minutes, passed_seconds = convert_timedelta(current - started)
+    print(str(passed_hours) + ':' + str(passed_minutes) + ':' + str(passed_seconds) + '/' + video.duration, end="\r")
