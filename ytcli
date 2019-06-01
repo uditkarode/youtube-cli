@@ -1,0 +1,18 @@
+#! /usr/bin/python
+
+import argparse as ap
+import urllib.request
+import urllib.parse
+import subprocess
+import re
+
+parser = ap.ArgumentParser(description='a simple tool that lets you play songs using YouTube from the cli')
+parser.add_argument('--query', type=str, help='video id of the song on youtube')
+args = parser.parse_args()
+
+query_string = urllib.parse.urlencode({"search_query" : args.query})
+html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
+search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
+print("http://www.youtube.com/watch?v=" + search_results[0])
+
+
