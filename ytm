@@ -2,7 +2,7 @@
 
 # a bash version with caching
 
-WORKING_DIR='/home/udit/.songs'
+WORKING_DIR="/home/$USER/.songs"
 TARGET_PLAYER='mpv'
 
 show_help(){
