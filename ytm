@@ -13,7 +13,9 @@ inv_par(){
 }
 
 play_song(){
-	link="$(ytcli --query "$1")"
+	arg="$@"
+	echo $arg
+	link="$(ytcli --query "$arg")"
         file=$(echo "$link" | sed 's/.*=//')
         info="$(ytcli --info "$link")"
         echo -e $info && echo
