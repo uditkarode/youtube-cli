@@ -1,7 +1,5 @@
 #! /bin/bash
 
-# a bash version with caching
-
 WORKING_DIR="/home/$USER/.songs"
 TARGET_PLAYER='mpv'
 
@@ -38,9 +36,13 @@ case "$#" in
 			'-p'|'--play')
 				link="$(ytcli --query "$2")"
 				file=$(echo "$link" | sed 's/.*=//')
+				info="$(ytcli --info "$link")"
+				echo -e $info && echo
+				info="`echo $info | head -1`"
 				if [ -f "$WORKING_DIR/$file" ]; then
 					mpv $WORKING_DIR/$file
 				else
+					echo -e "${info%%Uploader: *}\t|\t\033[0;32m$file" >> $HOME/.songs/saved
 					youtube-dl -f 251 --audio-format "aac" -o - "$link" | tee "$file" | mpv -					
 				fi
 			;;
