@@ -25,7 +25,7 @@ case "$#" in
 			;;
 
 			'-i'|'--info')
-				echo "total songs cached: "
+				cat $HOME/.songs/saved
 				du -hs $WORKING_DIR
 			;;
 		esac
