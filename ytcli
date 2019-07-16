@@ -22,6 +22,6 @@ if args.info != None:
     jsonstr = urllib.request.urlopen("https://noembed.com/embed?url=" + args.info).read().decode('utf-8')
     video_info = json.loads(jsonstr)
     YELLOW='\033[0;33m'
-    RESET_ALL='\033[0;33m'
+    RESET_ALL='\033[0m'
     print(YELLOW + 'Title: ' + RESET_ALL + video_info['title'])
     print(YELLOW + 'Uploader: ' + RESET_ALL + video_info['author_name'])

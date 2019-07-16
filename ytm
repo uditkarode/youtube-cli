@@ -11,6 +11,20 @@ inv_par(){
 	echo inv
 }
 
+play_song(){
+	link="$(ytcli --query "$1")"
+        file=$(echo "$link" | sed 's/.*=//')
+        info="$(ytcli --info "$link")"
+        echo -e $info && echo
+        info="`echo $info | head -1`"
+        if [ -f "$WORKING_DIR/$file" ]; then
+                mpv $WORKING_DIR/$file
+        else
+                echo -e "${info%%Uploader: *}\t|\t\033[0;32m$file" >> $HOME/.songs/saved
+                youtube-dl -f 251 --audio-format "aac" -o - "$link" | tee "$file" | mpv -
+        fi
+}
+
 cd $WORKING_DIR
 
 case "$#" in
@@ -34,22 +48,16 @@ case "$#" in
 	"2")
 		case "$1" in
 			'-p'|'--play')
-				link="$(ytcli --query "$2")"
-				file=$(echo "$link" | sed 's/.*=//')
-				info="$(ytcli --info "$link")"
-				echo -e $info && echo
-				info="`echo $info | head -1`"
-				if [ -f "$WORKING_DIR/$file" ]; then
-					mpv $WORKING_DIR/$file
-				else
-					echo -e "${info%%Uploader: *}\t|\t\033[0;32m$file" >> $HOME/.songs/saved
-					youtube-dl -f 251 --audio-format "aac" -o - "$link" | tee "$file" | mpv -					
-				fi
+				play_song "$2"
 			;;
 		esac
 		;;
 	
 	*)
-		inv_par
+		if [ "$1" = "-p" ] || [ "$1" = "--play" ]; then
+			play_song "${@:2}"
+		else
+			inv_par
+		fi
 		;;
 esac
