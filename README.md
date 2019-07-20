@@ -1,5 +1,6 @@
 # youtube-cli
 ytm is a command line based music player with a song cache at ~/.songs which uses ytcli as a helper.
+make sure you have youtube-dl and mpv installed, you can find installation guides for your distro on Google.
 
 USAGE:  
 1> clone the repository  
