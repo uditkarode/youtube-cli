@@ -24,7 +24,7 @@ play_song(){
                 mpv $WORKING_DIR/$file
         else
                 echo -e "${info%%Uploader: *}\t|\t\033[0;32m$file" >> $HOME/.songs/saved
-                youtube-dl -f 251 --audio-format "aac" -o - "$link" | tee "$file" | mpv -
+                youtube-dl -f 251 --audio-format "aac" -o - "$link" | tee "$file" | $TARGET_PLAYER -
         fi
 }
 
