@@ -5,11 +5,13 @@ TARGET_PLAYER='mpv'
 export PYTHONIOENCODING='utf-8'
 
 show_help(){
-	echo help
+	echo -e "Usage: ucc [option] [argument]\n"
+	echo "-p/--play <title> - search and play audio of the first YouTubesearch result for <title>."
+	echo "-i/--info - view saved songs and the amount of space they take."
 }
 
 inv_par(){
-	echo inv
+	echo "invalid parameters. use the flag --help to get available parameters."
 }
 
 play_song(){
