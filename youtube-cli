@@ -6,7 +6,7 @@ export PYTHONIOENCODING='utf-8'
 
 show_help(){
 	echo -e "Usage: ucc [option] [argument]\n"
-	echo "-p/--play <title> - search and play audio of the first YouTubesearch result for <title>."
+	echo "-p/--play <title> - search and play audio of the first YouTube search result for <title>."
 	echo "-i/--info - view saved songs and the amount of space they take."
 }
 
@@ -17,9 +17,9 @@ inv_par(){
 play_song(){
 	arg="$@"
 	echo "search: $arg"
-	link="$(ytcli --query "$arg")"
+	link="$(python3 `which ytcli` --query "$arg")"
         file=$(echo "$link" | sed 's/.*=//')
-        info="$(ytcli --info "$link")"
+        info="$(python3 `which ytcli` --info "$link")"
         echo -e $info && echo
         info="`echo $info | head -1`"
         if [ -f "$WORKING_DIR/$file" ]; then
