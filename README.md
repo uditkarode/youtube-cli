@@ -12,8 +12,5 @@ USAGE:
 3> make ytcli and ytm executable using chmod  
   `sudo chmod a+x /usr/bin/youtube-cli /usr/bin/ytcli`
   
-4> create the directory $HOME/.songs  
-  `mkdir -v ~/.songs`
-  
-5> youtube-cli --play or -p song name  
+4> youtube-cli --play or -p song name  
   `youtube-cli -p pink floyd wish you were here`

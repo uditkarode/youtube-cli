@@ -1,8 +1,12 @@
 #! /bin/bash
 
-WORKING_DIR="/home/$USER/.songs"
+WORKING_DIR="$HOME/.songs"
 TARGET_PLAYER='mpv'
 export PYTHONIOENCODING='utf-8'
+
+if [ ! -d $WORKING_DIR ]; then
+	mkdir $WORKING_DIR
+fi
 
 show_help(){
 	echo -e "Usage: ucc [option] [argument]\n"
@@ -57,7 +61,7 @@ case "$#" in
 			;;
 		esac
 		;;
-	
+
 	*)
 		if [ "$1" = "-p" ] || [ "$1" = "--play" ]; then
 			play_song "${@:2}"
