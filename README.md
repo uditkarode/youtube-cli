@@ -16,7 +16,8 @@ USAGE:
   If you're on macOS 10.15+
   ```bash
   git clone https://github.com/uditkarode/youtube-cli.git /tmp/youtube-cli
-  cp /tmp/youtube-cli/{youtube-cli,ytcli} /usr/localbin
-  sudo chmod a+x /usr/local/bin/youtube-cli /usr/localbin/ytcli
-  youtube-cli -p pink floyd wish you were here
+  cp /tmp/youtube-cli/youtube-cli /usr/local/bin/ytm
+  cp /tmp/youtube-cli/ytcli /usr/local/bin/
+  sudo chmod a+x /usr/local/bin/{ytm,ytcli}
+  ytm -p pink floyd wish you were here
   ```
