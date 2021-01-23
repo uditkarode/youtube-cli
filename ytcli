@@ -14,8 +14,8 @@ args = parser.parse_args()
 
 if args.query != None:
     query_string = urllib.parse.urlencode({"search_query" : args.query})
-    html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
-    search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
+    html = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + query_string)
+    search_results = re.findall(r"watch\?v=(\S{11})", html.read().decode())
     print("http://www.youtube.com/watch?v=" + search_results[0])
 
 if args.info != None:
