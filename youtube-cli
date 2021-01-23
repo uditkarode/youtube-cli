@@ -9,7 +9,7 @@ if [ ! -d $WORKING_DIR ]; then
 fi
 
 show_help(){
-	echo -e "Usage: ucc [option] [argument]\n"
+  echo -e "Usage: $(echo $0 | sed 's/\/.*\///g') [option] [argument]\n"
 	echo "-p/--play <title> - search and play audio of the first YouTube search result for <title>."
 	echo "-i/--info - view saved songs and the amount of space they take."
 }
